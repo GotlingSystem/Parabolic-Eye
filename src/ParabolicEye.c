@@ -26,6 +26,8 @@ Layer *display_layer;
 #define Y_MAX 168
 #define X_CEN 72
 #define Y_CEN 84
+#define BACKGROUND GColorWhite
+#define FOREGROUND GColorBlack
 
 static const GPathInfo HOUR_HAND_POINTS = {
 	3, (GPoint []){
@@ -57,7 +59,7 @@ void display_layer_update_callback(Layer *me, GContext* ctx) {
 			p0 = GPoint(0, y);
 			p1 = GPoint(x, Y_MAX);
 			
-			graphics_context_set_stroke_color(ctx, GColorWhite);
+			graphics_context_set_stroke_color(ctx, FOREGROUND);
 			graphics_draw_line(ctx, p0, p1);
 		}
 	} else {
@@ -68,7 +70,7 @@ void display_layer_update_callback(Layer *me, GContext* ctx) {
 			p0 = GPoint(0, y);
 			p1 = GPoint(x, Y_MAX);
 			
-			graphics_context_set_stroke_color(ctx, GColorWhite);
+			graphics_context_set_stroke_color(ctx, FOREGROUND);
 			graphics_draw_line(ctx, p0, p1);
 		}
 	}
@@ -83,7 +85,7 @@ void display_layer_update_callback(Layer *me, GContext* ctx) {
 			p0 = GPoint(x, 0);
 			p1 = GPoint(X_MAX, y);
 			
-			graphics_context_set_stroke_color(ctx, GColorWhite);
+			graphics_context_set_stroke_color(ctx, FOREGROUND);
 			graphics_draw_line(ctx, p0, p1);
 		}
 	} else {
@@ -94,7 +96,7 @@ void display_layer_update_callback(Layer *me, GContext* ctx) {
 			p0 = GPoint(x, 0);
 			p1 = GPoint(X_MAX, y);
 			
-			graphics_context_set_stroke_color(ctx, GColorWhite);
+			graphics_context_set_stroke_color(ctx, FOREGROUND);
 			graphics_draw_line(ctx, p0, p1);
 		}
 	}
@@ -102,13 +104,13 @@ void display_layer_update_callback(Layer *me, GContext* ctx) {
 	// Hour
 	// Middle
 	GPoint center = (GPoint) { .x = X_CEN, .y = Y_CEN};
-	graphics_context_set_fill_color(ctx, GColorWhite);
+	graphics_context_set_fill_color(ctx, FOREGROUND);
 	graphics_fill_circle(ctx, center, 30);
 	
 	unsigned int angle = (t->tm_hour * 30);// + (t->tm_min / 2);
 	gpath_rotate_to(hour_arrow, (TRIG_MAX_ANGLE / 360) * angle);
 	
-	graphics_context_set_fill_color(ctx, GColorBlack);
+	graphics_context_set_fill_color(ctx, BACKGROUND);
 	gpath_draw_filled(ctx, hour_arrow);
 }
 
@@ -121,7 +123,7 @@ static void do_init(void) {
 	window = window_create();
 	window_stack_push(window, true);
 	
-	window_set_background_color(window, GColorBlack);
+	window_set_background_color(window, BACKGROUND);
 	
 	Layer *root_layer = window_get_root_layer(window);
 	GRect frame = layer_get_frame(root_layer);
