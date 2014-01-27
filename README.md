@@ -1,4 +1,3 @@
-Parabolic-Eye
+Parabolic Eye
 =============
-
 A Pebble watchface
