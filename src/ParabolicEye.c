@@ -26,8 +26,8 @@ Layer *display_layer;
 #define Y_MAX 168
 #define X_CEN 72
 #define Y_CEN 84
-#define BACKGROUND GColorWhite
-#define FOREGROUND GColorBlack
+#define BACKGROUND GColorBlack
+#define FOREGROUND GColorWhite
 
 static const GPathInfo HOUR_HAND_POINTS = {
 	3, (GPoint []){
