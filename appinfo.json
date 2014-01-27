@@ -1,10 +1,10 @@
 {
   "uuid": "c58e00d2-a730-4dac-a179-c72ecd76095a",
   "shortName": "Para Eye IN",
-  "longName": "Parabolic Eye IN",
+  "longName": "Parabolic Eye Inverse",
   "companyName": "Gotling System AB",
   "versionCode": 1,
-  "versionLabel": "1.0.0",
+  "versionLabel": "1.0.1",
   "watchapp": {
     "watchface": true
   },
