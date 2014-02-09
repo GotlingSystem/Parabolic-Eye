@@ -42,6 +42,9 @@ void display_layer_update_callback(Layer *me, GContext* ctx) {
 	
 	time_t now = time(NULL);
 	struct tm *t = localtime(&now);
+
+	// Measure Execution time Part1
+	uint16_t before_ms = time_ms(NULL, NULL);
 	
 	short x;
 	short y;
@@ -101,6 +104,14 @@ void display_layer_update_callback(Layer *me, GContext* ctx) {
 		}
 	}
 	
+	// Measure Execution time Part2
+	char exec_time[5];
+	snprintf(exec_time, sizeof exec_time, "%d", (int)(time_ms(NULL, NULL) - before_ms));
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "Display layer execution time: %s ms", exec_time);
+	
+	// Measure Execution time Part1
+	before_ms = time_ms(NULL, NULL);
+	
 	// Hour
 	// Middle
 	GPoint center = (GPoint) { .x = X_CEN, .y = Y_CEN};
@@ -112,12 +123,15 @@ void display_layer_update_callback(Layer *me, GContext* ctx) {
 	
 	graphics_context_set_fill_color(ctx, BACKGROUND);
 	gpath_draw_filled(ctx, hour_arrow);
+	
+	// Measure Execution time Part2
+	snprintf(exec_time, sizeof exec_time, "%d", (int)(time_ms(NULL, NULL) - before_ms));
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "Hour layer execution time: %s ms", exec_time);
 }
 
 void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
 	layer_mark_dirty(display_layer);
 }
-
 
 static void do_init(void) {
 	window = window_create();
@@ -134,7 +148,7 @@ static void do_init(void) {
 	layer_add_child(root_layer, display_layer);
 	
 	tick_timer_service_subscribe(SECOND_UNIT, &handle_second_tick);
-	
+
 	// Hour triangle
 	hour_arrow = gpath_create(&HOUR_HAND_POINTS);
 	gpath_move_to(hour_arrow, (GPoint) { .x = X_CEN, .y = Y_CEN});
