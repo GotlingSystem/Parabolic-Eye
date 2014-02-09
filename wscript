@@ -1,24 +1,26 @@
-
-#
-# This file is the default set of rules to compile a Pebble project.
-#
-# Feel free to customize this to your needs.
-#
-
 top = '.'
 out = 'build'
 
 def options(ctx):
     ctx.load('pebble_sdk')
+    ctx.load('autoconfig', tooldir='wtools')
 
 def configure(ctx):
     ctx.load('pebble_sdk')
+    ctx.load('autoconfig', tooldir='wtools')
 
 def build(ctx):
     ctx.load('pebble_sdk')
+    ctx.load('autoconfig', tooldir='wtools')
 
-    ctx.pbl_program(source=ctx.path.ant_glob('src/**/*.c'),
-                    target='pebble-app.elf')
+    for template in ctx.path.ant_glob(['wtools/templates/*.jinja']):
+        ctx.add_manual_dependency(
+            template,
+            ctx.path.find_node('appinfo.json'))
+
+    ctx.pbl_program(
+        source=ctx.path.ant_glob(['src/**/*.c','wtools/**/*.jinja']),
+        target='pebble-app.elf')
 
     ctx.pbl_bundle(elf='pebble-app.elf',
-                   js=ctx.path.ant_glob('src/js/**/*.js'))
+                   js=ctx.path.ant_glob('build/**/*.js'))

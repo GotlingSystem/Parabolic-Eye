@@ -8,8 +8,19 @@
   "watchapp": {
     "watchface": true
   },
+  "capabilities": [ "configurable" ],
   "appKeys": {
-    "dummy": 0
+    "inverse": 0
+  },
+  "preferences": {
+    "url" : "http://gotling-system.se/pebble/parabolic-eye/config/", 
+    "items": [{
+        "name":   "inverse",
+        "title":  "Make background black",
+        "type":   "switch",
+        "switch":  ["OFF","ON"],
+        "default": 0
+    }]
   },
   "resources": {
     "media": []
