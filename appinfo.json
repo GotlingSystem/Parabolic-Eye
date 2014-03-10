@@ -3,8 +3,8 @@
   "shortName": "Para Eye",
   "longName": "Parabolic Eye",
   "companyName": "Gotling System AB",
-  "versionCode": 2,
-  "versionLabel": "1.1.0",
+  "versionCode": 3,
+  "versionLabel": "1.2.0",
   "watchapp": {
     "watchface": true
   },
@@ -13,13 +13,16 @@
     "inverse": 0
   },
   "preferences": {
+    "embedded": true,
+    "debug": true,
     "url" : "http://gotling-system.se/pebble/parabolic-eye/config/", 
     "items": [{
         "name":   "inverse",
-        "title":  "Make background black",
-        "type":   "switch",
-        "switch":  ["OFF","ON"],
-        "default": 0
+        "title":  "Background color",
+        "type":   "boolean",
+        "default": false,
+        "off-text": "White",
+        "on-text": "Black"
     }]
   },
   "resources": {

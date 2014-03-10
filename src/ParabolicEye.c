@@ -147,10 +147,10 @@ static void set_color(bool inverse) {
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
 	// call autoconf_in_received_handler
-	autoconf_in_received_handler(iter, context); //////////////// call autoconf_in_received_handler inyour custom in_received_handler
+	autoconfig_in_received_handler(iter, context); //////////////// call autoconf_in_received_handler inyour custom in_received_handler
 	
 	// here the new settings are available
-	APP_LOG(APP_LOG_LEVEL_DEBUG, "Setting updated. Inverse: %d", getInverse());
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "Setting updated. Inverse: %d", (int)getInverse());
 	set_color(getInverse());
 	
 	window_set_background_color(window, background);
@@ -158,10 +158,10 @@ static void in_received_handler(DictionaryIterator *iter, void *context) {
 
 static void do_init(void) {
 	// call autoconf init (load previous settings and register app message handlers)
-	autoconf_init(); //////////////// call autoconf_init
+	autoconfig_init(); //////////////// call autoconf_init
 	
 	// here the previous settings are already loaded
-	APP_LOG(APP_LOG_LEVEL_DEBUG, "Settings read. Inverse: %d", getInverse());
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "Settings read. Inverse: %d", (int)getInverse());
 	set_color(getInverse());
 	
 	//override autoconfig in_received_handler (if something must be done when new settings arrive)
@@ -194,7 +194,7 @@ static void do_deinit(void) {
 	gpath_destroy(hour_arrow);
 	
 	// call autoconf deinit
-	autoconf_deinit(); //////////////// call autoconf_deinit
+	autoconfig_deinit(); //////////////// call autoconf_deinit
 }
 
 
